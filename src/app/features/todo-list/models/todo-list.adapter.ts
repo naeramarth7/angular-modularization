@@ -10,5 +10,5 @@ export interface ITodoListAdapter {
 }
 
 export const TODO_LIST_MODULES_ADAPTER = new InjectionToken<ITodoListAdapter>(
-  'TodoListAdapter'
+  'ITodoListAdapter'
 );
