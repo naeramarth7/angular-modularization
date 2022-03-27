@@ -4,7 +4,10 @@ import { TodoListItem } from 'src/app/features/todo-list/models/todo-list-item.m
 
 import { ITodoListAdapter } from '../../features/todo-list';
 import { TodoItem } from '../models/todo-item.model';
-import { ITodoAdapter, TODO_ADAPTER } from './todo-adapter.interface';
+import {
+  ITodoStorageAdapter,
+  TODO_ADAPTER,
+} from './todo-storage-adapter.interface';
 
 @Injectable()
 export class TodoListAdapter implements ITodoListAdapter {
@@ -13,16 +16,16 @@ export class TodoListAdapter implements ITodoListAdapter {
   private readonly todos: BehaviorSubject<TodoItem[]>;
   private readonly todoList: BehaviorSubject<TodoListItem[]>;
 
-  private todoAdapter: ITodoAdapter;
+  private todoStorageAdapter: ITodoStorageAdapter;
 
   constructor(injector: Injector) {
-    this.todoAdapter = injector.get(TODO_ADAPTER);
+    this.todoStorageAdapter = injector.get(TODO_ADAPTER);
 
     this.todos = new BehaviorSubject<TodoItem[]>([]);
     this.todoList = new BehaviorSubject<TodoListItem[]>([]);
     this.todoList$ = this.todoList.asObservable();
 
-    this.todoAdapter
+    this.todoStorageAdapter
       .getTodos()
       .pipe(
         tap((elements) => this.todos.next(elements)),
@@ -35,7 +38,7 @@ export class TodoListAdapter implements ITodoListAdapter {
   }
 
   addNew(): Observable<TodoListItem[]> {
-    return this.todoAdapter
+    return this.todoStorageAdapter
       .addNew()
       .pipe(
         map((todos: TodoItem[]): TodoListItem[] =>
@@ -49,13 +52,13 @@ export class TodoListAdapter implements ITodoListAdapter {
     if (!itemToUpdate) return of(item);
 
     itemToUpdate.title = item.title;
-    return this.todoAdapter
+    return this.todoStorageAdapter
       .update(itemToUpdate)
       .pipe(map(this.todoItemToListItem));
   }
 
   delete(id: TodoListItem['id']): Observable<boolean> {
-    return this.todoAdapter.delete(id);
+    return this.todoStorageAdapter.delete(id);
   }
 
   private todoItemToListItem(item: TodoItem): TodoListItem {

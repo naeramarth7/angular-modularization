@@ -10,16 +10,17 @@ import {
 } from 'rxjs';
 
 import { TodoItem } from '../models/todo-item.model';
-import { ITodoAdapter } from './todo-adapter.interface';
+import { ITodoStorageAdapter } from './todo-storage-adapter.interface';
 
 @Injectable()
-export class TodoAdapterLocalStorage implements ITodoAdapter {
+export class TodoStorageAdapterLocalStorage implements ITodoStorageAdapter {
   private static STORAGE_KEY = '_todos';
   private readonly todos = new BehaviorSubject<TodoItem[]>([]);
 
   constructor() {
     const dataString =
-      window.localStorage.getItem(TodoAdapterLocalStorage.STORAGE_KEY) || '[]';
+      window.localStorage.getItem(TodoStorageAdapterLocalStorage.STORAGE_KEY) ||
+      '[]';
 
     try {
       const data = JSON.parse(dataString);
@@ -83,7 +84,7 @@ export class TodoAdapterLocalStorage implements ITodoAdapter {
 
     try {
       window.localStorage.setItem(
-        TodoAdapterLocalStorage.STORAGE_KEY,
+        TodoStorageAdapterLocalStorage.STORAGE_KEY,
         dataString
       );
       return newItems;

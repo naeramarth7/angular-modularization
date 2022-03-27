@@ -3,11 +3,13 @@ import { Observable } from 'rxjs';
 
 import { TodoItem } from '../models/todo-item.model';
 
-export interface ITodoAdapter {
+export interface ITodoStorageAdapter {
   getTodos: () => Observable<TodoItem[]>;
   addNew: () => Observable<TodoItem[]>;
   update: (item: Partial<TodoItem>) => Observable<TodoItem>;
   delete: (id: TodoItem['id']) => Observable<boolean>;
 }
 
-export const TODO_ADAPTER = new InjectionToken<ITodoAdapter>('ITodoAdapter');
+export const TODO_ADAPTER = new InjectionToken<ITodoStorageAdapter>(
+  'ITodoStorageAdapter'
+);
