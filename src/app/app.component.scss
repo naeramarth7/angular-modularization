@@ -1,0 +1,13 @@
+:host {
+  display: flex;
+  width: 100%;
+  max-width: 800px;
+}
+
+app-todo-list {
+  flex: 1;
+}
+
+app-todo-item {
+  flex: 1;
+}
