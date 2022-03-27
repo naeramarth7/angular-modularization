@@ -1,13 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  BehaviorSubject,
-  first,
-  firstValueFrom,
-  map,
-  Observable,
-  of,
-  tap,
-} from 'rxjs';
+import { BehaviorSubject, first, map, Observable, of, tap } from 'rxjs';
 
 import { TodoItem } from '../models/todo-item.model';
 import { ITodoStorageAdapter } from './todo-storage-adapter.interface';

@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { BehaviorSubject, first, map, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, of, tap } from 'rxjs';
 import { TodoListItem } from 'src/app/features/todo-list/models/todo-list-item.model';
 
 import { ITodoListAdapter } from '../../features/todo-list';
