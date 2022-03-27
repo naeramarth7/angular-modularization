@@ -5,7 +5,7 @@ import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { TodoListFacade } from './facades/todo-list.facade';
 import {
   ITodoListAdapter,
-  TODO_LIST_ADAPTER,
+  TODO_LIST_MODULES_ADAPTER,
 } from './models/todo-list.adapter';
 import { TodoListService } from './services/todo-list.service';
 

@@ -9,6 +9,6 @@ export interface ITodoListAdapter {
   delete: (id: TodoListItem['id']) => Observable<boolean>;
 }
 
-export const TODO_LIST_ADAPTER = new InjectionToken<ITodoListAdapter>(
+export const TODO_LIST_MODULES_ADAPTER = new InjectionToken<ITodoListAdapter>(
   'TodoListAdapter'
 );

@@ -7,7 +7,10 @@ import { TodoStorageAdapterLocalStorage } from './common/adapters/todo-storage-a
 import { TODO_STORAGE_ADAPTER } from './common/adapters/todo-storage-adapter.interface';
 import { TodoListAdapter } from './common/adapters/todo-list.adapter';
 import { TodoItemModule } from './features/todo-item/todo-item.module';
-import { TodoListModule, TODO_LIST_ADAPTER } from './features/todo-list';
+import {
+  TodoListModule,
+  TODO_LIST_MODULES_ADAPTER,
+} from './features/todo-list';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +19,7 @@ import { TodoListModule, TODO_LIST_ADAPTER } from './features/todo-list';
     AppRoutingModule,
     TodoListModule.withAdapters([
       {
-        provide: TODO_LIST_ADAPTER,
+        provide: TODO_LIST_MODULES_ADAPTER,
         useClass: TodoListAdapter,
       },
     ]),
