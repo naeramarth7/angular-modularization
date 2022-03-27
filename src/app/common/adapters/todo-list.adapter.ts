@@ -6,7 +6,7 @@ import { ITodoListAdapter } from '../../features/todo-list';
 import { TodoItem } from '../models/todo-item.model';
 import {
   ITodoStorageAdapter,
-  TODO_ADAPTER,
+  TODO_STORAGE_ADAPTER,
 } from './todo-storage-adapter.interface';
 
 @Injectable()
@@ -19,7 +19,7 @@ export class TodoListAdapter implements ITodoListAdapter {
   private todoStorageAdapter: ITodoStorageAdapter;
 
   constructor(injector: Injector) {
-    this.todoStorageAdapter = injector.get(TODO_ADAPTER);
+    this.todoStorageAdapter = injector.get(TODO_STORAGE_ADAPTER);
 
     this.todos = new BehaviorSubject<TodoItem[]>([]);
     this.todoList = new BehaviorSubject<TodoListItem[]>([]);

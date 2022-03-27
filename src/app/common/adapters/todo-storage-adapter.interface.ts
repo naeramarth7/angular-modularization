@@ -10,6 +10,6 @@ export interface ITodoStorageAdapter {
   delete: (id: TodoItem['id']) => Observable<boolean>;
 }
 
-export const TODO_ADAPTER = new InjectionToken<ITodoStorageAdapter>(
+export const TODO_STORAGE_ADAPTER = new InjectionToken<ITodoStorageAdapter>(
   'ITodoStorageAdapter'
 );

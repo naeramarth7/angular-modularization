@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TodoStorageAdapterLocalStorage } from './common/adapters/todo-storage-adapter-local-storage';
-import { TODO_ADAPTER } from './common/adapters/todo-storage-adapter.interface';
+import { TODO_STORAGE_ADAPTER } from './common/adapters/todo-storage-adapter.interface';
 import { TodoListAdapter } from './common/adapters/todo-list.adapter';
 import { TodoItemModule } from './features/todo-item/todo-item.module';
 import { TodoListModule, TODO_LIST_ADAPTER } from './features/todo-list';
@@ -24,7 +24,7 @@ import { TodoListModule, TODO_LIST_ADAPTER } from './features/todo-list';
   ],
   providers: [
     {
-      provide: TODO_ADAPTER,
+      provide: TODO_STORAGE_ADAPTER,
       useClass: TodoStorageAdapterLocalStorage,
     },
   ],
