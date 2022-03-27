@@ -21,4 +21,12 @@ export class TodoListService {
   public addNew(): void {
     this.todoListAdapter.addNew().subscribe();
   }
+
+  public update(item: TodoListItem): void {
+    this.todoListAdapter.update(item).subscribe();
+  }
+
+  public delete(item: TodoListItem): void {
+    this.todoListAdapter.delete(item.id);
+  }
 }

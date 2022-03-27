@@ -1,5 +1,8 @@
 <p>todo list <button (click)="facade.addNew()">+</button></p>
 
-<ng-container *ngFor="let todoItem of (facade.todoList$ | async)">
-  <div>{{ todoItem.title }}</div>
+<ng-container *ngFor="let todoItem of (facade.todoList$ | async); trackBy: trackById">
+  <div>
+    <input type="text" value="{{ todoItem.title }}" (keyup)="facade.rename(todoItem, $event)">
+    <button (click)="facade.delete(todoItem)">-</button>
+  </div>
 </ng-container>

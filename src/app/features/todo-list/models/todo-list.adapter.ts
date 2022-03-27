@@ -5,6 +5,8 @@ import { TodoListItem } from './todo-list-item.model';
 export interface ITodoListAdapter {
   readonly todoList$: Observable<TodoListItem[]>;
   addNew: () => Observable<TodoListItem[]>;
+  update: (item: TodoListItem) => Observable<TodoListItem>;
+  delete: (id: TodoListItem['id']) => Observable<boolean>;
 }
 
 export const TODO_LIST_ADAPTER = new InjectionToken<ITodoListAdapter>(

@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { BehaviorSubject, lastValueFrom, map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, first, map, Observable, of, tap } from 'rxjs';
 import { TodoListItem } from 'src/app/features/todo-list/models/todo-list-item.model';
 
 import { ITodoListAdapter } from '../../features/todo-list';
@@ -42,6 +42,20 @@ export class TodoListAdapter implements ITodoListAdapter {
           todos.map(this.todoItemToListItem)
         )
       );
+  }
+
+  update(item: TodoListItem): Observable<TodoListItem> {
+    const itemToUpdate = { ...this.todos.value.find((e) => e.id === item.id) };
+    if (!itemToUpdate) return of(item);
+
+    itemToUpdate.title = item.title;
+    return this.todoAdapter
+      .update(itemToUpdate)
+      .pipe(map(this.todoItemToListItem));
+  }
+
+  delete(id: TodoListItem['id']): Observable<boolean> {
+    return this.todoAdapter.delete(id);
   }
 
   private todoItemToListItem(item: TodoItem): TodoListItem {

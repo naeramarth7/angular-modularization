@@ -43,21 +43,53 @@ export class TodoAdapterLocalStorage implements ITodoAdapter {
     return this.todos.pipe(
       first(),
       map((currentItems) => [...currentItems, newItem]),
-      map((newItems) => {
-        const dataString = JSON.stringify(newItems);
-
-        try {
-          window.localStorage.setItem(
-            TodoAdapterLocalStorage.STORAGE_KEY,
-            dataString
-          );
-          return newItems;
-        } catch (e) {
-          return [];
-        }
-      }),
-      tap((items) => this.todos.next(items))
+      tap((items) => this.todos.next(items)),
+      tap(() => this.save())
     );
+  }
+
+  public update(item: Partial<TodoItem>): Observable<TodoItem> {
+    const index = this.todos.value.findIndex((e) => e.id === item.id);
+    if (index < 0) return of(item as any);
+
+    const updatedItem = {
+      ...this.todos.value[index],
+      ...item,
+    };
+
+    this.todos.next([
+      ...this.todos.value.slice(0, index),
+      updatedItem,
+      ...this.todos.value.slice(index + 1),
+    ]);
+    this.save();
+
+    return of(updatedItem);
+  }
+
+  public delete(id: TodoItem['id']): Observable<boolean> {
+    const index = this.todos.value.findIndex((e) => e.id === id);
+    this.todos.next([
+      ...this.todos.value.slice(0, index),
+      ...this.todos.value.slice(index + 1),
+    ]);
+    this.save();
+    return of(true);
+  }
+
+  private save() {
+    const newItems = this.todos.value;
+    const dataString = JSON.stringify(newItems);
+
+    try {
+      window.localStorage.setItem(
+        TodoAdapterLocalStorage.STORAGE_KEY,
+        dataString
+      );
+      return newItems;
+    } catch (e) {
+      return [];
+    }
   }
 
   private generateId() {
